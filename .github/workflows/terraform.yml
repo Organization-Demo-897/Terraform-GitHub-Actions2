@@ -37,7 +37,8 @@ jobs:
       run: terraform init
 
     - name: Terraform Format
-      run: terraform fmt -check -recursive
+      run: terraform fmt -check -diff -recursive
+      id: terraform_fmt
 
     - name: Terraform Plan
       run: terraform plan -input=false
