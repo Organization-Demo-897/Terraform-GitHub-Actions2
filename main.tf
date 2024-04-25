@@ -1,16 +1,12 @@
-terraform {
-  required_providers {
-    aws = {
-      version = "4.67.0"
-      source  = "hashicorp/aws"
-    }
+provider "aws" {
+  region = "us-east-1"  # Change the region if needed
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-0f496107db66676ff"  # Specify your desired AMI ID
+  instance_type = "t2.micro"                # Specify your desired instance type
+  
+  tags = {
+    Name = "ExampleInstance"  # Name tag for the instance
   }
-}
-
-data "aws_s3_bucket" "selected" {
-  bucket = "BUCKETNAME"
-}
-
-output "website_arn" {
-  value = data.aws_s3_bucket.selected.arn
 }
