@@ -1,5 +1,22 @@
-provider "aws" {
-  region = "us-east-1"  # Change the region if needed
+#provider "aws" {
+#  region = "us-east-1"  # Change the region if needed
+#}
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.18.0"
+    }
+  }
+
+  backend "s3" {
+    bucket         	   = "terraform-github-actions-demo-8973453"
+    key              	 = "state/terraform.tfstate"
+    region         	   = "us-east-1"
+    encrypt        	   = true
+    dynamodb_table     = "terraform-github-actions-db"
+  }
 }
 
 
