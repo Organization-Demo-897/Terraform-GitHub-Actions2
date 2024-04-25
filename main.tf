@@ -1,12 +1,16 @@
-# main.tf
-provider "aws" {
-  region = "us-east-1"
+terraform {
+  required_providers {
+    aws = {
+      version = "4.67.0"
+      source  = "hashicorp/aws"
+    }
+  }
 }
 
-resource "aws_instance" "demo" {
-  ami       	 = "ami-0f496107db66676ff"
-  instance_type = "t2.micro"
-  tags = {
-	Name = "DemoEC2Instance1"
-  }
+data "aws_s3_bucket" "selected" {
+  bucket = "BUCKETNAME"
+}
+
+output "website_arn" {
+  value = data.aws_s3_bucket.selected.arn
 }
